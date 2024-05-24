@@ -13,12 +13,10 @@ import {
 } from 'react-native';
 import firebase from '@react-native-firebase/app'
 import firestore from '@react-native-firebase/firestore'
-// import SplashScreen from 'react-native-splash-screen';
 
 const androidConfig = {
   appId: '1:409558079318:android:3463ac856c72c58d3da8f7', //diff from iOS
   apiKey: "AIzaSyCFGIpkrpY_rGA4NtgoZbjomuNPBPYQWPY", //diff from iOS
-  // databaseURL: "https://offer-approved.firebaseio.com",
   projectId: "tenant-management-ec993",
   storageBucket: "tenant-management-ec993.appspot.com",
 }

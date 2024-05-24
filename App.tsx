@@ -5,114 +5,92 @@
  * @format
  */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
   Text,
-  useColorScheme,
-  View,
+  View
 } from 'react-native';
+import firebase from '@react-native-firebase/app'
+import firestore from '@react-native-firebase/firestore'
+// import SplashScreen from 'react-native-splash-screen';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const androidConfig = {
+  appId: '1:409558079318:android:3463ac856c72c58d3da8f7', //diff from iOS
+  apiKey: "AIzaSyCFGIpkrpY_rGA4NtgoZbjomuNPBPYQWPY", //diff from iOS
+  // databaseURL: "https://offer-approved.firebaseio.com",
+  projectId: "tenant-management-ec993",
+  storageBucket: "tenant-management-ec993.appspot.com",
+}
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+if (!firebase.apps.length) {
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  firebase.initializeApp(androidConfig)
+}
+
+const App = () => {
+
+  // useEffect(() => {
+  //   SplashScreen?.hide();
+  // }, [])
+
+  const func = async () => {
+    try {
+      console.log("start");
+      await firestore()
+        .collection('Devs')
+        .get()
+        .then(querySnapshot => {
+          console.log('Total users: ', querySnapshot.size);
+
+          querySnapshot.forEach(documentSnapshot => {
+            console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+          });
+        });
+
+      // console.log(resp);
+
+      console.log("end");
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+
+  const func1 = async () => {
+    try {
+      console.log("started");
+      
+      const resp = await firestore()
+        .collection('Devs')
+        .doc('ABCskdjsddsf')
+        .set({
+          name: "Sumedha",
+          age: 20
+        })
+        .then(() => {
+          console.log('User added!');
+        });
+        await func();
+        console.log("finished");
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
+    <View>
+
+      <Text style={{ margin: "auto", fontSize: 20, marginBottom: 50, marginTop: 100, backgroundColor: "red" }} onPress={func}>
+        shi
       </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
+      <Text style={{ margin: "auto", fontSize: 20 }} onPress={func1}>
+        vam
       </Text>
     </View>
   );
 }
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

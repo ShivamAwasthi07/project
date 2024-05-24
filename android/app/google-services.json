@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "409558079318",
+    "project_id": "tenant-management-ec993",
+    "storage_bucket": "tenant-management-ec993.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409558079318:android:3463ac856c72c58d3da8f7",
+        "android_client_info": {
+          "package_name": "com.project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFGIpkrpY_rGA4NtgoZbjomuNPBPYQWPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

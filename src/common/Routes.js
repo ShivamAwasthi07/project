@@ -1,0 +1,4 @@
+export const ROUTES = {
+    LOGIN: 'LOGIN',
+    ADMIN_DASHBOARD: 'ADMIN_DASHBOARD',
+}

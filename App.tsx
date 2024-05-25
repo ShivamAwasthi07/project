@@ -5,7 +5,6 @@
  * @format
  */
 
-import axios from 'axios';
 import React, { useEffect } from 'react';
 import {
   Text,
@@ -13,10 +12,11 @@ import {
 } from 'react-native';
 import firebase from '@react-native-firebase/app'
 import firestore from '@react-native-firebase/firestore'
+import Navigator from './src/navigate';
 
 const androidConfig = {
-  appId: '1:409558079318:android:3463ac856c72c58d3da8f7', //diff from iOS
-  apiKey: "AIzaSyCFGIpkrpY_rGA4NtgoZbjomuNPBPYQWPY", //diff from iOS
+  appId: '1:409558079318:android:3463ac856c72c58d3da8f7',
+  apiKey: "AIzaSyCFGIpkrpY_rGA4NtgoZbjomuNPBPYQWPY",
   projectId: "tenant-management-ec993",
   storageBucket: "tenant-management-ec993.appspot.com",
 }
@@ -61,7 +61,7 @@ const App = () => {
       
       const resp = await firestore()
         .collection('Devs')
-        .doc('ABCskdjsddsf')
+        .doc('ABCskd')
         .set({
           name: "Sumedha",
           age: 20
@@ -78,15 +78,7 @@ const App = () => {
   }
 
   return (
-    <View>
-
-      <Text style={{ margin: "auto", fontSize: 20, marginBottom: 50, marginTop: 100, backgroundColor: "red" }} onPress={func}>
-        shi
-      </Text>
-      <Text style={{ margin: "auto", fontSize: 20 }} onPress={func1}>
-        vam
-      </Text>
-    </View>
+    <Navigator />
   );
 }
 

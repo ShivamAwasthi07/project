@@ -5,6 +5,7 @@ import LoginScreen from '../screens/login';
 import ConstData from '../common/ConstData';
 import { ROUTES } from '../common/Routes';
 import AdminDashboardScreen from '../screens/admin-dashboard';
+import AddPropertyForm from '../screens/add-property';
 
 const Navigator = () => {
   const Stack = createNativeStackNavigator();
@@ -14,6 +15,7 @@ const Navigator = () => {
         <Stack.Navigator initialRouteName='LOGIN' screenOptions={ConstData.SCREEN_OPTIONS}>
           <Stack.Screen name={ROUTES.LOGIN} component={LoginScreen} />
           <Stack.Screen name={ROUTES.ADMIN_DASHBOARD} component={AdminDashboardScreen} />
+          <Stack.Screen name={ROUTES.ADD_PROPERTY_FORM} component={AddPropertyForm} />
         </Stack.Navigator>
       </NavigationContainer>
     </Fragment>

@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   Text,
@@ -9,8 +8,6 @@ import {
   Image,
   Platform,
 } from 'react-native';
-// import {COLORS, IMAGES} from '../../shared';
-// import adjustSize from '../../shared/adjustSize';
 import COLORS from '../../common/Colors';
 import IMAGES from '../../common/Images';
 import adjustSize from '../../common/adjustSize';
@@ -91,7 +88,8 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: Platform.isPad ? adjustSize(28, 'h') : adjustSize(24, 'h'),
     textAlign: 'center',
-    fontWeight: Platform.isPad ? '500' : '600',
+    fontWeight: Platform.isPad ? '500' : '400',
+    letterSpacing: 1,
   },
   buttonText: {
     fontSize: adjustSize(13, 'h'),
@@ -112,8 +110,9 @@ const Header = props => {
     showRightButton = false,
     rightButtonPress,
   } = props;
+
   return (
-    <View style={[styles.container, { marginTop: adjustSize(0, 'h') }]}>
+    <View style={styles.container}>
       <TouchableOpacity
         activeOpacity={0.7}
         style={styles.leftContainer}

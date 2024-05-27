@@ -11,10 +11,10 @@ const Tab = createBottomTabNavigator();
 
 const AdminDashboardScreen = (props) => {
   return (
-    <Tab.Navigator initialRouteName={ROUTES.ADMIN_HOME} tabBar={(props) => <CustomBottomTabBar {...props} />} screenOptions={{headerShown: false}}>
-      <Tab.Screen name={ROUTES.ADMIN_HOME} component={AdminHome}/>
-      <Tab.Screen name={ROUTES.ADMIN_CUSTOMERS} component={AdminCustomers}/>
-      <Tab.Screen name={ROUTES.ADMIN_PROPERTIES} component={AdminProperties}/>
+    <Tab.Navigator initialRouteName={ROUTES.ADMIN_HOME} tabBar={(props) => <CustomBottomTabBar {...props} />} screenOptions={{ headerShown: false }}>
+      <Tab.Screen name={ROUTES.ADMIN_HOME} component={AdminHome} />
+      <Tab.Screen name={ROUTES.ADMIN_CUSTOMERS} component={AdminCustomers} />
+      <Tab.Screen name={ROUTES.ADMIN_PROPERTIES} component={AdminProperties} />
     </Tab.Navigator>
   )
 }

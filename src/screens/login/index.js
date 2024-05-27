@@ -7,12 +7,9 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Add your login logic here
     console.log('Email:', email);
     console.log('Password:', password);
     navigation.navigate(ROUTES.ADMIN_DASHBOARD);
-    // Navigate to another screen if login is successful
-    // navigation.navigate('Home');
   };
 
   return (

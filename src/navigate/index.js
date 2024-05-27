@@ -5,8 +5,6 @@ import LoginScreen from '../screens/login';
 import ConstData from '../common/ConstData';
 import { ROUTES } from '../common/Routes';
 import AdminDashboardScreen from '../screens/admin-dashboard';
-import { Text } from 'react-native';
-
 
 const Navigator = () => {
   const Stack = createNativeStackNavigator();

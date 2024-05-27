@@ -1,5 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -15,7 +15,7 @@ import COLORS from '../../common/Colors';
 import IMAGES from '../../common/Images';
 import adjustSize from '../../common/adjustSize';
 
-const {height, width} = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     // alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: COLORS.DARK_3,
+    backgroundColor: COLORS.DARK_2,
     // alignSelf: 'center',
   },
   leftContainer: {
@@ -44,12 +44,50 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
+  rightContainer: {
+    width: Platform.isPad ? 110 : width * 0.25,
+    height: height * 0.06,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingRight: Platform.isPad ? adjustSize(28, 'w') : width * 0.06,
+  },
+  rightContainerTab: {
+    width: Platform.isPad ? adjustSize(106, 'w') : width * 0.25,
+    height: height * 0.06,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  rightContainerTabNew: {
+    width: Platform.isPad ? adjustSize(106, 'w') : width * 0.25,
+    height: height * 0.04,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
   button: {
     height: height * 0.04,
     width: width * 0.15,
     justifyContent: 'center',
-},
+  },
+  rightImageWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: width * 0.01,
+    marginHorizontal: width * 0.01,
+  },
+  rightImageWrapperTab: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: adjustSize(40, 'w'),
+    height: adjustSize(40, 'w'),
+    // backgroundColor:'blue'
+  },
+  rightImage: {
+    width: Platform.isPad ? adjustSize(36, 'w') : adjustSize(24, 'w'),
+    height: Platform.isPad ? adjustSize(36, 'w') : adjustSize(24, 'w'),
+  },
   titleText: {
     fontSize: Platform.isPad ? adjustSize(28, 'h') : adjustSize(24, 'h'),
     textAlign: 'center',
@@ -67,24 +105,19 @@ const styles = StyleSheet.create({
 });
 
 const Header = props => {
-  const navigation = useNavigation();
   const {
     title,
-    backButton,
+    backButton = false,
     onBackButtonPress,
-    rightButtonType='Skip', // 'Skip' or 'Cancel' or 'ClassOptions'
+    showRightButton = false,
     rightButtonPress,
-    rightButton = true,
-    rightImages = [IMAGES.CANCEL],
-    resizeMode = 'cover',
-    rightImageStyle,
   } = props;
   return (
-    <View style={[styles.container, {marginTop: adjustSize(0, 'h')}]}>
+    <View style={[styles.container, { marginTop: adjustSize(0, 'h') }]}>
       <TouchableOpacity
         activeOpacity={0.7}
         style={styles.leftContainer}
-        >
+      >
         {backButton ? (
           <TouchableOpacity onPress={onBackButtonPress} style={styles.button}>
             <Image
@@ -106,6 +139,21 @@ const Header = props => {
         ) : (
           <View />
         )}
+      </View>
+      <View
+        style={
+          Platform.isPad
+            ? styles.rightContainerTabNew
+            : Platform.isPad
+              ? styles.rightContainerTab
+              : styles.rightContainer
+        }>
+        {showRightButton && (<TouchableOpacity
+          onPress={rightButtonPress}
+          style={styles.buttonRight}>
+          <Text style={styles.buttonText}>ADD</Text>
+        </TouchableOpacity>)}
+
       </View>
     </View>
   );

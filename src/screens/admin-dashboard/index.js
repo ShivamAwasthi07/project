@@ -15,6 +15,7 @@ const AdminDashboardScreen = (props) => {
       <Tab.Screen name={ROUTES.ADMIN_HOME} component={AdminHome} />
       <Tab.Screen name={ROUTES.ADMIN_CUSTOMERS} component={AdminCustomers} />
       <Tab.Screen name={ROUTES.ADMIN_PROPERTIES} component={AdminProperties} />
+      <Tab.Screen name={ROUTES.ACCOUNT_INFO} component={AdminProperties} />
     </Tab.Navigator>
   )
 }

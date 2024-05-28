@@ -30,21 +30,14 @@ const App = () => {
 
   const func = async () => {
     try {
-      console.log("start");
       await firestore()
         .collection('Devs')
         .get()
         .then(querySnapshot => {
-          console.log('Total users: ', querySnapshot.size);
-
           querySnapshot.forEach(documentSnapshot => {
             console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
           });
         });
-
-      // console.log(resp);
-
-      console.log("end");
     } catch (error) {
       console.log(error);
 
@@ -53,8 +46,6 @@ const App = () => {
 
   const func1 = async () => {
     try {
-      console.log("started");
-      
       const resp = await firestore()
         .collection('Devs')
         .doc('ABCskd')
@@ -66,7 +57,6 @@ const App = () => {
           console.log('User added!');
         });
         await func();
-        console.log("finished");
     } catch (error) {
       console.log(error);
 

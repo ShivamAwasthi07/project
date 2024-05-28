@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, TextInput, Button, StyleSheet, ScrollView, TouchableOpacity, Image, View } from 'react-native';
+import { Text, TextInput, Button, StyleSheet, ScrollView, TouchableOpacity, Image, View, ActivityIndicator } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import COLORS from '../../common/Colors';
 import ConstData from '../../common/ConstData';
@@ -11,51 +11,48 @@ const AddPropertyForm = () => {
     const [propertyName, setPropertyName] = useState('');
     const [propertyAddress, setPropertyAddress] = useState('');
     const [rent, setRent] = useState('');
-    const [rentFrom, setRentFrom] = useState(new Date());
-    const [rentTo, setRentTo] = useState(new Date());
     const [interest, setInterest] = useState('');
     const [status, setStatus] = useState(null);
     const [description, setDescription] = useState('');
     const [images, setImages] = useState([]);
     const [propertyType, setPropertyType] = useState(null);
     const [uploading, setUploading] = useState(false);
-    const [downloadURLs, setDownloadURLs] = useState([]);
 
     const handleSubmit = async () => {
         // Handle form submission
         try {
-            await uploadImages();
-            console.log(downloadURLs)
-            await firestore()
-                .collection('Properties')
-                .add({
-                    propertyName,
-                    propertyAddress,
-                    rent,
-                    interest,
-                    status,
-                    description,
-                    propertyType,
-                    propertyImages: downloadURLs
-                })
-                .then(() => {
-                    console.log('User added!');
-                    setDownloadURLs([]);
-                });
-            console.log({
+            setUploading(true);
+            const uploadPromises = images.map(image => {
+                const imageName = image.fileName || image.uri.split('/').pop();
+                return uploadImage(image.uri, imageName);
+            });
+            let urls = []
+            try {
+                urls = await Promise.all(uploadPromises);
+            } catch (error) {
+                console.error('Error uploading images: ', error);
+                return;
+            }
+            let postObject = {
                 propertyName,
+                propertyAddress,
                 rent,
-                rentFrom,
-                rentTo,
                 interest,
                 status,
                 description,
-                images,
                 propertyType,
-                downloadURLs
-            });
+                propertyImages: urls
+            }
+            await firestore()
+                .collection('Properties')
+                .add(postObject)
+                .then(() => {
+                    console.log('Property added!');
+                });
         } catch (error) {
             console.log(error.message);
+        } finally {
+            setUploading(false);
         }
     };
 
@@ -84,23 +81,6 @@ const AddPropertyForm = () => {
         return url;
     };
 
-    const uploadImages = async () => {
-        setUploading(true);
-        const uploadPromises = images.map(image => {
-            const imageName = image.fileName || image.uri.split('/').pop();
-            return uploadImage(image.uri, imageName);
-        });
-
-        try {
-            const urls = await Promise.all(uploadPromises);
-            setDownloadURLs(urls);
-            console.log('All images uploaded and URLs retrieved: ', urls);
-        } catch (error) {
-            console.error('Error uploading images: ', error);
-        } finally {
-            setUploading(false);
-        }
-    };
     return (
         <ScrollView style={styles.container}>
             <Text style={styles.label}>Property Name</Text>
@@ -188,8 +168,9 @@ const AddPropertyForm = () => {
                 selectedTextStyle={ConstData.DROPDOWN_STYLES.selectedTextStyles}
 
             />
-
-            <Button title="Submit" onPress={handleSubmit} />
+            <TouchableOpacity style={styles.submitButton}>
+                <Text style={styles.submitButtonText} onPress={handleSubmit} disabled={uploading}>{uploading ? <ActivityIndicator size="small" color={COLORS.SUCCESS} /> : "Submit"}</Text>
+            </TouchableOpacity>
         </ScrollView>
     );
 };
@@ -232,6 +213,17 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#fff',
+        fontSize: 16,
+    },
+    submitButton: {
+        backgroundColor: COLORS.SUCCESS_BG,
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+        marginVertical: 10,
+    },
+    submitButtonText: {
+        color: COLORS.SUCCESS,
         fontSize: 16,
     },
     imageContainer: {

@@ -2,12 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import PropertyItem from '../property-card';
 import firestore from '@react-native-firebase/firestore'
+import { useFocusEffect } from '@react-navigation/native';
 
 const PropertyList = () => {
     const [properties, setProperties] = useState([]);
 
+    useFocusEffect(
+        React.useCallback(() => {
+          fetchPropertyList();
+        }, [])
+      );
+
     const fetchPropertyList = async () => {
         try {
+            console.log("called")
             const properties = [];
             const snapshot = await firestore().collection('Properties').get();
             snapshot.forEach(doc => {
@@ -21,15 +29,16 @@ const PropertyList = () => {
                     propertyType,
                 });
             });
+            console.log(properties)
             setProperties(properties);
         } catch (error) {
             console.log(error.message);
         }
     }
 
-    useEffect(() => {
-        fetchPropertyList();
-    }, [])
+    // useEffect(() => {
+    //     fetchPropertyList();
+    // }, [])
     return (
             <FlatList
                 data={properties}

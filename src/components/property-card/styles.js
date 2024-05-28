@@ -37,7 +37,7 @@ export const propertyCardStyles = {
         marginBottom: 10,
     },
     status: {
-        fontSize: 14,
+        fontSize: 12,
         fontWeight: '300',
         paddingHorizontal: 16,
         paddingVertical: 5,

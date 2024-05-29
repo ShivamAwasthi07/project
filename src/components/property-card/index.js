@@ -9,11 +9,19 @@ const iconType = {
     warehouse: 'warehouse',
     office: 'office-building',
 }
-const PropertyItem = ({ property }) => (
+const PropertyItem = ({ property, onDelete, onEdit }) => (
     <View style={styles.itemContainer}>
         <View style={styles.row}>
             <MCIIcons name={iconType[`${property?.propertyType || "house"}`]} color={COLORS.INFORMATION} size={20}/>
             <Text style={styles.title}>{property.propertyName}</Text>
+            <View style={styles.iconContainer}>
+                <TouchableOpacity onPress={() => onEdit(property)}>
+                    <MCIIcons name="pencil" size={20} color={COLORS.INFORMATION} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => onDelete(property)}>
+                    <MCIIcons name="delete" size={20} color={COLORS.ERROR} />
+                </TouchableOpacity>
+            </View>
         </View>
         <View style={styles.detailRow}>
             <Text style={styles.propTitle}>Rent: <Text style={styles.text}>{"Rs. " + property.rent + "/Month"}</Text></Text>

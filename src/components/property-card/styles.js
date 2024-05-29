@@ -9,17 +9,24 @@ export const propertyCardStyles = {
         borderWidth: 1,
         borderColor: '#ddd',
         elevation: 1,
+        position: 'relative',
     },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
+        justifyContent: 'space-between', // Aligns title to the left and icons to the right
     },
     title: {
         fontSize: 18,
         fontWeight: '300',
-        marginLeft: 10,
         color: COLORS.INFORMATION,
+        flex: 1,
+    },
+    iconContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: 50,
     },
     propTitle: {
         color: COLORS.BLACK,

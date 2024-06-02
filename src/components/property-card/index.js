@@ -9,11 +9,11 @@ const iconType = {
     warehouse: 'warehouse',
     office: 'office-building',
 }
-const PropertyItem = ({ property, onDelete, onEdit }) => (
+const PropertyItem = ({ property, onDelete, onEdit, onOpenDetails }) => (
     <View style={styles.itemContainer}>
         <View style={styles.row}>
             <MCIIcons name={iconType[`${property?.propertyType || "house"}`]} color={COLORS.INFORMATION} size={20}/>
-            <Text style={styles.title}>{property.propertyName}</Text>
+            <Text style={styles.title} onPress={onOpenDetails}>{property.propertyName}</Text>
             <View style={styles.iconContainer}>
                 <TouchableOpacity onPress={() => onEdit(property)}>
                     <MCIIcons name="pencil" size={20} color={COLORS.INFORMATION} />

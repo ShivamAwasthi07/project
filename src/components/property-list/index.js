@@ -43,7 +43,7 @@ const PropertyList = () => {
 
     const handleEdit = (property) => {
         navigation.navigate(ROUTES.ADD_PROPERTY_FORM, {edit: true, propertyId : property?.id});
-      };
+    };
     const fetchPropertyList = async () => {
         try {
             const properties = [];
@@ -65,11 +65,15 @@ const PropertyList = () => {
         }
     }
 
+    const renderOpenProperty = (property) => {
+        navigation.navigate(ROUTES.PROPERTY_DETAILS, {propertyId : property?.id});
+    }
+
     return (
         <FlatList
             style={{ maxHeight: height * 0.85 }}
             data={properties}
-            renderItem={({ item }) => <PropertyItem onEdit={() => handleEdit(item)} onDelete={() => confirmDelete(item?.id?.toString())} property={item} />}
+            renderItem={({ item }) => <PropertyItem onOpenDetails={() => renderOpenProperty(item)} onEdit={() => handleEdit(item)} onDelete={() => confirmDelete(item?.id?.toString())} property={item} />}
             keyExtractor={item => item?.id?.toString()}
             contentContainerStyle={{ padding: 10 }}
         />

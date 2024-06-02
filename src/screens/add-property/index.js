@@ -18,7 +18,6 @@ import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 
 const AddPropertyForm = ({route}) => {
-  console.log(route.params);
   const [propertyName, setPropertyName] = useState('');
   const [propertyAddress, setPropertyAddress] = useState('');
   const [rent, setRent] = useState('');

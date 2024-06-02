@@ -28,9 +28,18 @@ const PROPERTY_TYPE_OPTIONS = [
     { label: 'Other', value: 'other' },
 ];
 
+const PROPERTY_TYPE = {
+    flat: 'Flat',
+    warehouse: 'Ware House',
+    office: 'Office',
+    house: 'House',
+    other: 'Other'
+}
+
 export default DATA = {
     SCREEN_OPTIONS,
     DROPDOWN_STYLES,
     STATUS_OPTIONS,
-    PROPERTY_TYPE_OPTIONS
+    PROPERTY_TYPE_OPTIONS,
+    PROPERTY_TYPE
 }
